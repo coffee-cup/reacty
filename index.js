@@ -34,6 +34,14 @@ const reactToMessage = (bot, message, emoji) => {
     bot.api.reactions.add(createReaction(message, emoji));
 };
 
+const makeReacter = (keywords, emojis) => {
+    controller.hears(keywords, ['ambient', 'direct_message', 'direct_mention', 'mention'], (bot, message) => {
+        emojis.forEach((e) => {
+            reactToMessage(bot, message, e);
+        });
+    });
+};
+
 const normalizeText = (s) => s.toLowerCase().trim();
 
 const hear = ['direct_message', 'direct_mention', 'mention'];
@@ -84,3 +92,6 @@ controller.hears('.*', ['mention', 'direct_mention'], (bot, message) => {
         }
     });
 });
+
+makeReacter('midterm|assignment|school|final|lab|class', ['thumbsdown']);
+makeReacter('beer|fels|party', ['beers']);
