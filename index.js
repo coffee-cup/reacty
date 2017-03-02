@@ -93,5 +93,5 @@ controller.hears('.*', ['mention', 'direct_mention'], (bot, message) => {
     });
 });
 
-makeReacter('midterm|assignment|school|final|lab|class', ['thumbsdown']);
+makeReacter('midterm|assignment|school|final|lab|class|exam', ['thumbsdown']);
 makeReacter('beer|fels|party', ['beers']);
