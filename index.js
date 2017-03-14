@@ -42,22 +42,23 @@ const makeReacter = (keywords, emojis) => {
 
 const normalizeText = (s) => s.toLowerCase().trim();
 
-const hear = ['direct_message', 'direct_mention', 'mention'];
+const direct = ['direct_message', 'direct_mention', 'mention'];
+const everything = ['ambient', 'direct_message', 'direct_mention', 'mention'];
 
 controller.hears('hello|^hi$', ['ambient', 'mention', 'direct_mention'], (bot, message) => {
     reactToMessage(bot, message, 'wave');
 });
 
-controller.hears('help', hear, (bot, message) => {
+controller.hears('help', direct, (bot, message) => {
     bot.reply(message, 'I will react to message that I am tagged in.');
 });
 
-controller.hears('vote\!', ['ambient'], (bot, message) => {
+controller.hears('vote\!', everything, (bot, message) => {
     reactToMessage(bot, message, 'thumbsup');
     reactToMessage(bot, message, 'thumbsdown');
 });
 
-controller.hears('vote:(.+)', ['ambient'], (bot, message) =>  {
+controller.hears('vote:(.+)', everything, (bot, message) =>  {
     const text = message.match[1].toLowerCase().trim();
     const votingWords = text.split(',');
 
@@ -77,7 +78,7 @@ controller.hears('vote:(.+)', ['ambient'], (bot, message) =>  {
     });
 });
 
-controller.hears('.*', ['mention', 'direct_mention'], (bot, message) => {
+controller.hears('.*', direct, (bot, message) => {
     const text = normalizeText(message.text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ''));
     const words = text.split(' ');
 
