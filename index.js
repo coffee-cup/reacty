@@ -83,6 +83,13 @@ controller.hears('.*', direct, (bot, message) => {
     const words = text.split(' ');
 
     words.forEach((word) => {
+        word = word.trim();
+
+        // exceptions
+        if (word === 'no') word = 'thumbsdown';
+        if (word === '3') word = 'three';
+        if (word === 'hi') word = 'hello';
+
         const emoji = emojiFromWord(word);
         console.log(emoji);
 
